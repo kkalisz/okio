@@ -11,6 +11,7 @@ buildscript {
       'assertj': '1.7.0',
       'shadowPlugin': '2.0.2',
       'nodePlugin': '1.2.0',
+      'kotlinNativeVersion' : '0.7.1'
   ]
 
   ext.deps = [
@@ -23,6 +24,7 @@ buildscript {
               'jdk6': "org.jetbrains.kotlin:kotlin-stdlib",
               'js': "org.jetbrains.kotlin:kotlin-stdlib-js",
           ],
+          'nativeGradlePlugin' : "org.jetbrains.kotlin:kotlin-native-gradle-plugin:${versions.kotlinNativeVersion}",
           'test': [
               'common': "org.jetbrains.kotlin:kotlin-test-common",
               'annotations': "org.jetbrains.kotlin:kotlin-test-annotations-common",
@@ -52,6 +54,7 @@ buildscript {
 
   dependencies {
     classpath deps.kotlin.gradlePlugin
+    classpath deps.kotlin.nativeGradlePlugin
     classpath deps.animalSniffer.gradlePlugin
     classpath deps.japicmp
     classpath deps.dokka
@@ -63,6 +66,7 @@ buildscript {
   repositories {
     mavenCentral()
     gradlePluginPortal()
+    maven { url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies" }
   }
 }
 

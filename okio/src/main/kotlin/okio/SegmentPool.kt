@@ -39,7 +39,8 @@ internal object SegmentPool {
         next = result.next
         result.next = null
         byteCount -= Segment.SIZE
-        return result
+        // remove qualified return when https://youtrack.jetbrains.com/issue/KT-24100 is fixed
+        return@synchronized result
       }
     }
     return Segment() // Pool is empty. Don't zero-fill while holding a lock.
@@ -51,7 +52,8 @@ internal object SegmentPool {
     if (segment.shared) return  // This segment cannot be recycled.
 
     synchronized(this) {
-      if (byteCount + Segment.SIZE > MAX_SIZE) return  // Pool is full.
+      // remove qualified return when https://youtrack.jetbrains.com/issue/KT-24100 is fixed
+      if (byteCount + Segment.SIZE > MAX_SIZE) return@synchronized  // Pool is full.
       byteCount += Segment.SIZE
       segment.next = next
       segment.limit = 0

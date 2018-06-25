@@ -51,7 +51,7 @@ internal fun ByteString.commonHex(): String {
   var c = 0
   for (b in data) {
     result[c++] = ByteString.HEX_DIGITS[b shr 4 and 0xf]
-    result[c++] = ByteString.HEX_DIGITS[b       and 0xf]
+    result[c++] = ByteString.HEX_DIGITS[b       and 0xf.toInt()]
   }
   return result.createString()
 }
